@@ -34,7 +34,7 @@ public class tiny_gp {
     DEPTH   = 5,
     GENERATIONS = 100,
     TSIZE = 2;
-  public static final double  
+  public static final double
     PMUT_PER_NODE  = 0.05,
     CROSSOVER_PROB = 0.9;
   static double [][] targets;
