@@ -1,10 +1,8 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -12,10 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.*;
-import java.util.*;
 
-import javax.swing.JFormattedTextField;
-import javax.swing.DropMode;
 import javax.script.*;
 
 public class Interface {
@@ -76,7 +71,6 @@ public class Interface {
 				
 				formula = functionArea.getText();
 				int dataSetSize = 63; // This is part of the settings, this is the number of fitness cases -- The bigger the number the better the fitness, but, the program takes more time...
-				double minValue=0;
 				
 				try {
 				
@@ -109,7 +103,7 @@ public class Interface {
 		        
 			}
 		});
-		solve.setBounds(314, 34, 89, 23);
+		solve.setBounds(273, 34, 89, 23);
 		frame.getContentPane().add(solve);
 		
 		functionArea = new JTextField();
@@ -119,5 +113,4 @@ public class Interface {
 		
 		
 	}//end of initialize
-	
 }// EOF

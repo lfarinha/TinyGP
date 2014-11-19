@@ -7,7 +7,7 @@
 
 import java.util.*;
 import java.io.*; 
-//import java.text.DecimalFormat; 
+
 
 public class tiny_gp {
   double [] fitness;
@@ -317,7 +317,7 @@ public class tiny_gp {
       	case MUL: 
       	case DIV:
            parentcopy[mutsite] = 
-              (char) (rd.nextInt(FSET_END - FSET_START + 1) 
+              (char) (rd.nextInt(FSET_END - FSET_START + 1)
                      + FSET_START);
         }
       }
