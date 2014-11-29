@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 
 import javax.script.*;
+import javax.swing.JTextArea;
 
 public class Interface {
 	
@@ -58,7 +59,7 @@ public class Interface {
 	private void initialize() {
 				
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 403);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -111,6 +112,17 @@ public class Interface {
 		frame.getContentPane().add(functionArea);
 		functionArea.setColumns(10);
 		
+		JTextArea result = new JTextArea();
+		result.setToolTipText("Setting values for Tiny GP");
+		result.setEditable(false);
+		result.setBounds(10, 132, 220, 166);
+		frame.getContentPane().add(result);
+	
+				
+		String settings = ("Depth: "+tiny_gp.DEPTH +"\r\nMax Lenght: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nmin random: "+tiny_gp.minrandom+"\r\nmax random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree size: "+tiny_gp.TSIZE);
 		
+	    result.setText(settings); //Displays the current settings of TinyGP
+		
+
 	}//end of initialize
 }// EOF

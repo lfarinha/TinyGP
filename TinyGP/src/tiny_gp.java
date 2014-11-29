@@ -8,8 +8,10 @@
 import java.util.*;
 import java.io.*; 
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-public class tiny_gp {
+
+public class tiny_gp{
   double [] fitness;
   char [][] pop;
   static Random rd = new Random();
@@ -70,6 +72,10 @@ public class tiny_gp {
       return( traverse( buffer, traverse( buffer, ++buffercount ) ) );
       }
     return( 0 ); // should never get here
+  }
+  
+  public tiny_gp(){
+	  
   }
 
   void setup_fitness(String fname) {
@@ -242,6 +248,7 @@ public class tiny_gp {
     print_indiv( pop[best], 0 );
     System.out.print( "\n");
     System.out.flush();
+        
   }
 
   int tournament( double [] fitness, int tsize ) {
@@ -336,6 +343,9 @@ public class tiny_gp {
      	    "\nGENERATIONS="+GENERATIONS+
      	    "\nTSIZE="+TSIZE+
      	    "\n----------------------------------\n");
+   
+  
+   
   }
 
   public tiny_gp( String fname, long s ) {
