@@ -8,10 +8,22 @@
 import java.util.*;
 import java.io.*; 
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+import javax.swing.*;
 
 
-public class tiny_gp{
+public class tiny_gp extends JFrame{
+	
+	
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2312097555139691867L;
+
+	public String Solution;
+	private JPanel panel;
+	private JFrame frame;
+	private JTextArea textSolution;
+	
   double [] fitness;
   char [][] pop;
   static Random rd = new Random();
@@ -76,6 +88,27 @@ public class tiny_gp{
   
   public tiny_gp(){
 	  
+	    panel = new JPanel();
+		frame = new JFrame();
+		textSolution = new JTextArea();
+		
+		
+		textSolution.setToolTipText("Setting values for Tiny GP");
+		textSolution.setEditable(false);
+		textSolution.setBounds(10, 132, 220, 166);
+		frame.getContentPane().add(textSolution);
+		textSolution.setText(Solution);
+
+		
+		frame.setBounds(100, 100, 454, 424);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+	  
+		panel.add(textSolution);
+		this.add(panel);
+	  
+		
   }
 
   void setup_fitness(String fname) {
@@ -192,8 +225,9 @@ public class tiny_gp{
         System.out.print( " / "); 
         break;
       }
-    a2=print_indiv( buffer, a1 ); 
-    System.out.print( ")"); 
+    a2=print_indiv( buffer, a1 );
+    System.out.print( ")");
+
     return( a2);
   }
   
@@ -342,11 +376,31 @@ public class tiny_gp{
      	    "\nMAX_RANDOM="+maxrandom+
      	    "\nGENERATIONS="+GENERATIONS+
      	    "\nTSIZE="+TSIZE+
-     	    "\n----------------------------------\n");
+     	    "\n----------------------------------\n");     
    
-  
    
+
+   
+   File f = new File("console.dat");
+   if(!f.exists())
+   {
+     try {
+           f.createNewFile();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+   }
+
+ try {
+         FileOutputStream fos = new FileOutputStream(f);
+         PrintStream ps = new PrintStream(fos);
+         System.setOut(ps);
+ } catch (Exception e) {
+     e.printStackTrace();
+ }
+
   }
+   
 
   public tiny_gp( String fname, long s ) {
     fitness =  new double[POPSIZE];
@@ -360,6 +414,7 @@ public class tiny_gp{
   }
 
   void evolve() {
+			  
     int gen = 0, indivs, offspring, parent1, parent2, parent;
     double newfit;
     char []newind;
@@ -367,8 +422,52 @@ public class tiny_gp{
     stats( fitness, pop, 0 );
     for ( gen = 1; gen < GENERATIONS; gen ++ ) {
       if (  fbestpop > -1e-5 ) {
-      System.out.print("PROBLEM SOLVED\n");
-      System.exit( 0 );
+         System.out.print("PROBLEM SOLVED\n");
+         
+         
+         try{
+ 	    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); ////////////////////NEW STUFF
+ 	    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat"));
+ 	    	StringBuilder lineContent = new StringBuilder();
+ 	    	String line = "";
+ 	        int countLine = 0;
+
+ 	       
+ 	        
+ 	        while ((line = br.readLine()) != null) {
+ 	    		    	countLine++;
+ 	    		    	
+ 	    		       if (line.equals("PROBLEM SOLVED")){
+ 	    		    	   int actualLine = countLine-2;
+ 	    		    	   
+ 	    		    	   
+ 	    		    	  for (String lineOther = null; (lineOther = lineReader.readLine()) != null;) {
+ 	    		 	            if (lineReader.getLineNumber() >= actualLine) {
+ 	    		 	                lineContent.append(lineOther).append(File.pathSeparatorChar);
+ 	    		 	            }
+ 	    		 	        }
+ 	    		    	  Solution = lineContent.toString();
+ 	    		    	  JOptionPane.showMessageDialog(null, "PROBLEM SOLVED: "+Solution);
+ 	    		       }
+ 	    		    }
+ 	    		    
+ 	    		    lineReader.close();
+ 	    		    br.close();
+ 	     } catch (IOException e) {
+ 	        e.printStackTrace();
+ 	    }
+         
+         
+         
+         
+         try{
+       	  Thread.sleep(5000);
+         }
+         catch(InterruptedException e){
+       	  e.printStackTrace();
+         }
+    	 return;
+         //System.exit( 0 ); 
       }
       for ( indivs = 0; indivs < POPSIZE; indivs ++ ) {
       if ( rd.nextDouble() < CROSSOVER_PROB  ) {
@@ -388,10 +487,34 @@ public class tiny_gp{
       stats( fitness, pop, gen );
     }
     System.out.print("PROBLEM *NOT* SOLVED\n");
-    System.exit( 1 );
+    //System.exit( 1 );
+    try{
+     	  Thread.sleep(5000);
+       }
+       catch(InterruptedException e){
+     	  e.printStackTrace();
+       }
+    return;
   }
+  
+  
+ 
 
   public static void main(String[] args) {
+	  
+	try {
+	tiny_gp window = new tiny_gp();
+	
+	window.setTitle("Best Solution Found");
+	window.setSize(600,200);
+	window.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	window.frame.setVisible(true);
+	
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	   
+	  
     String fname = "problem.dat";
     long s = -1;
     
@@ -405,6 +528,8 @@ public class tiny_gp{
     
     tiny_gp gp = new tiny_gp(fname, s);
     gp.evolve();
+
+    
   }
 };
 

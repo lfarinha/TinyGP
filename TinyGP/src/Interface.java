@@ -6,13 +6,24 @@ import javax.swing.JTextField;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
+
+
+import javax.swing.SwingWorker;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.*;
+import java.util.StringTokenizer;
 
 import javax.script.*;
 import javax.swing.JTextArea;
+
+import com.sun.java_cup.internal.runtime.Scanner;
+
+import java.awt.Font;
+
 
 public class Interface {
 	
@@ -27,6 +38,7 @@ public class Interface {
 
 	private JFrame frame;
 	private JTextField functionArea;
+	private JLabel lblSettings;
 
 	
 
@@ -59,7 +71,7 @@ public class Interface {
 	private void initialize() {
 				
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 403);
+		frame.setBounds(100, 100, 454, 424);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -99,8 +111,19 @@ public class Interface {
 				bw.close();
 				}catch(Exception E){
 				}
-		     			
-		        tiny_gp.main(new String[0]);
+				
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+
+					@Override
+					protected Void doInBackground() throws Exception {
+							Thread.sleep(1000); // time until the thread goes to sleep
+							tiny_gp.main(new String[0]);
+						return null;
+					}
+										
+				};		     		
+		    
+				worker.execute();
 		        
 			}
 		});
@@ -112,17 +135,49 @@ public class Interface {
 		frame.getContentPane().add(functionArea);
 		functionArea.setColumns(10);
 		
-		JTextArea result = new JTextArea();
-		result.setToolTipText("Setting values for Tiny GP");
-		result.setEditable(false);
-		result.setBounds(10, 132, 220, 166);
-		frame.getContentPane().add(result);
-	
-				
+		/* This is the JTextField in which the settings are displayed --displaySettings-- */
+		
+		JTextArea displaySettings = new JTextArea();
+		displaySettings.setToolTipText("Setting values for Tiny GP");
+		displaySettings.setEditable(false);
+		displaySettings.setBounds(10, 132, 220, 166);
+		frame.getContentPane().add(displaySettings);
+					
 		String settings = ("Depth: "+tiny_gp.DEPTH +"\r\nMax Lenght: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nmin random: "+tiny_gp.minrandom+"\r\nmax random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree size: "+tiny_gp.TSIZE);
 		
-	    result.setText(settings); //Displays the current settings of TinyGP
-		
+	    displaySettings.setText(settings);
+	    
+	    
+	      
+	    
+	    
+	    
+//	    String content = null;
+//	    File file = new File("console.dat"); 
+//	    try {
+//	        FileReader reader = new FileReader(file);
+//	        char[] chars = new char[(int) file.length()];
+//	        reader.read(chars);
+//	        content = new String(chars);	        
+//	        reader.close();
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	    }
+	   
+	    
+	   
+
+	
+		lblSettings = new JLabel("Settings");
+		lblSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSettings.setBounds(10, 76, 200, 50);
+		frame.getContentPane().add(lblSettings);
+
 
 	}//end of initialize
+	
+	
+	
+	
+		
 }// EOF
