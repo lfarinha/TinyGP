@@ -6,6 +6,7 @@
  */
 
 import java.util.*;
+import java.awt.EventQueue;
 import java.io.*; 
 
 import javax.swing.*;
@@ -19,10 +20,10 @@ public class tiny_gp extends JFrame{
 	 */
 	private static final long serialVersionUID = -2312097555139691867L;
 
-	public String Solution;
-	private JPanel panel;
-	private JFrame frame;
-	private JTextArea textSolution;
+	public static String Solution;
+//	private JPanel panel;
+//	private JFrame frame;
+//	private JTextArea textSolution;
 	
   double [] fitness;
   char [][] pop;
@@ -88,25 +89,25 @@ public class tiny_gp extends JFrame{
   
   public tiny_gp(){
 	  
-	    panel = new JPanel();
-		frame = new JFrame();
-		textSolution = new JTextArea();
-		
-		
-		textSolution.setToolTipText("Setting values for Tiny GP");
-		textSolution.setEditable(false);
-		textSolution.setBounds(10, 132, 220, 166);
-		frame.getContentPane().add(textSolution);
-		textSolution.setText(Solution);
-
-		
-		frame.setBounds(100, 100, 454, 424);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-
-	  
-		panel.add(textSolution);
-		this.add(panel);
+//	    panel = new JPanel();
+//		frame = new JFrame();
+//		textSolution = new JTextArea();
+//		
+//		
+//		textSolution.setToolTipText("Setting values for Tiny GP");
+//		textSolution.setEditable(false);
+//		textSolution.setBounds(10, 132, 220, 166);
+//		frame.getContentPane().add(textSolution);
+//		textSolution.setText(Solution);
+//
+//		
+//		frame.setBounds(100, 100, 454, 424);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(null);
+//
+//	  
+//		panel.add(textSolution);
+//		this.add(panel);
 	  
 		
   }
@@ -457,9 +458,7 @@ public class tiny_gp extends JFrame{
  	        e.printStackTrace();
  	    }
          
-         
-         
-         
+
          try{
        	  Thread.sleep(5000);
          }
@@ -501,20 +500,7 @@ public class tiny_gp extends JFrame{
  
 
   public static void main(String[] args) {
-	  
-	try {
-	tiny_gp window = new tiny_gp();
-	
-	window.setTitle("Best Solution Found");
-	window.setSize(600,200);
-	window.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	window.frame.setVisible(true);
-	
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	   
-	  
+  	  
     String fname = "problem.dat";
     long s = -1;
     
@@ -528,8 +514,7 @@ public class tiny_gp extends JFrame{
     
     tiny_gp gp = new tiny_gp(fname, s);
     gp.evolve();
-
-    
-  }
+     
+ }
 };
 

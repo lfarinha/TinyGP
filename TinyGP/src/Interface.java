@@ -36,7 +36,7 @@ public class Interface {
 	public String formula;
 	
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField functionArea;
 	private JLabel lblSettings;
 
@@ -46,16 +46,19 @@ public class Interface {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interface window = new Interface();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		  EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Interface window = new Interface();
+						window.frame.setVisible(true);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+										
 				}
-			}
-		});
+			});
+		  
 	}
 
 	/**
@@ -64,6 +67,7 @@ public class Interface {
 	public Interface() {
 		initialize();
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -118,6 +122,8 @@ public class Interface {
 					protected Void doInBackground() throws Exception {
 							Thread.sleep(1000); // time until the thread goes to sleep
 							tiny_gp.main(new String[0]);
+							
+						
 						return null;
 					}
 										
@@ -127,6 +133,9 @@ public class Interface {
 		        
 			}
 		});
+		
+		
+		
 		solve.setBounds(273, 34, 89, 23);
 		frame.getContentPane().add(solve);
 		
@@ -147,27 +156,6 @@ public class Interface {
 		
 	    displaySettings.setText(settings);
 	    
-	    
-	      
-	    
-	    
-	    
-//	    String content = null;
-//	    File file = new File("console.dat"); 
-//	    try {
-//	        FileReader reader = new FileReader(file);
-//	        char[] chars = new char[(int) file.length()];
-//	        reader.read(chars);
-//	        content = new String(chars);	        
-//	        reader.close();
-//	    } catch (IOException e) {
-//	        e.printStackTrace();
-//	    }
-	   
-	    
-	   
-
-	
 		lblSettings = new JLabel("Settings");
 		lblSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblSettings.setBounds(10, 76, 200, 50);
