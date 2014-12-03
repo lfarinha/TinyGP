@@ -6,8 +6,12 @@
  */
 
 import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*; 
@@ -29,9 +33,9 @@ public class tiny_gp extends JFrame{
 public static String Solution;
 static int count = 0;	
 
+JPanel panel;
 JFrame frame;
 private JTextArea solutionArea;
-
 
 	
   double [] fitness;
@@ -370,16 +374,16 @@ private JTextArea solutionArea;
   }
   
   void print_parms() {
-   System.out.print("-- TINY GP (Java version) --\n");
-   System.out.print("SEED="+seed+"\nMAX_LEN="+MAX_LEN+
-   	    "\nPOPSIZE="+POPSIZE+"\nDEPTH="+DEPTH+
-     	    "\nCROSSOVER_PROB="+CROSSOVER_PROB+
-     	    "\nPMUT_PER_NODE="+PMUT_PER_NODE+
-     	    "\nMIN_RANDOM="+minrandom+
-     	    "\nMAX_RANDOM="+maxrandom+
-     	    "\nGENERATIONS="+GENERATIONS+
-     	    "\nTSIZE="+TSIZE+
-     	    "\n----------------------------------\n");     
+//   System.out.print("-- TINY GP (Java version) --\n");
+//   System.out.print("SEED="+seed+"\nMAX_LEN="+MAX_LEN+
+//   	    "\nPOPSIZE="+POPSIZE+"\nDEPTH="+DEPTH+
+//     	    "\nCROSSOVER_PROB="+CROSSOVER_PROB+
+//     	    "\nPMUT_PER_NODE="+PMUT_PER_NODE+
+//     	    "\nMIN_RANDOM="+minrandom+
+//     	    "\nMAX_RANDOM="+maxrandom+
+//     	    "\nGENERATIONS="+GENERATIONS+
+//     	    "\nTSIZE="+TSIZE+
+//     	    "\n----------------------------------\n");     
    
    
 
@@ -428,7 +432,7 @@ private JTextArea solutionArea;
          System.out.print("PROBLEM SOLVED\n");              
          invokeDataset();
          try{
-       	  Thread.sleep(9000);
+       	  Thread.sleep(10);
          }
          catch(InterruptedException e){
        	  e.printStackTrace();
@@ -457,7 +461,7 @@ private JTextArea solutionArea;
      invokeDataset();
     //System.exit( 1 );
     try{
-     	  Thread.sleep(5000);
+     	  Thread.sleep(10);
        }
        catch(InterruptedException e){
      	  e.printStackTrace();
@@ -472,82 +476,43 @@ private JTextArea solutionArea;
 	     
 	  	  
 		  try{
-		    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); // This is the object that reads the console.dat document
-		    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat")); // this object reads every line on the console.dat and bring the ammount of lines.
-		    	 
-		    	StringBuilder lineContent = new StringBuilder();
-		    	String line = "";
-		    	String lines[] = new String[1000];
-		    	
-		        int countLine = 0;
-		        
-		        frame = new JFrame();
-				frame.setBounds(100, 100, 200, 200);
-				frame.setSize(800, 600);
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.getContentPane().setLayout(null);
-				frame.setVisible(true);
-				
-				//JOptionPane.showMessageDialog(null, "countline: "+countLine);
-		  	    
-				//solutionArea.setText(lines[countLine]);
-				  
+
+		    	Scanner scanner = new Scanner(new File("console.dat")); // console.dat its readed by this object
+				String all = scanner.useDelimiter("\\A").next(); // and the variable "all" has everything that is in the console.dat
+
+			  	 				  
 		  		solutionArea = new JTextArea();
-		  		JScrollPane scrollPane = new JScrollPane(solutionArea);
-		  		solutionArea.setWrapStyleWord(false);
 		  		solutionArea.setEditable(true);
-		  		solutionArea.setBounds(10, 11, 700, 600);
-		  		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		  		frame.getContentPane().add(solutionArea);
-		  		//frame.getContentPane().add(scrollPane);
-		    		       
-		        
-		        while ((line = br.readLine()) != null) {
-
-		    		    	
-		    		    	
-		    		    	 lines[countLine] = line.trim();
-		    		    	 //JOptionPane.showMessageDialog(null, "Lines: "+lines[countLine]);
-		    		    	 
+		  		solutionArea.setBounds(10, 11, 400, 400);
+		  		solutionArea.setText(all);
+		  		solutionArea.setLineWrap(false);
+		  		solutionArea.setWrapStyleWord(true);
+		  		//solutionArea.setColumns(1000);
+		  		
+		  		JScrollPane scroll = new JScrollPane(solutionArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		  		
+		  		frame = new JFrame("Best Solution Found!");
+		  		frame.getContentPane().add(scroll);
+		  		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.setBounds(100, 100, 100, 80);
+				frame.setSize(600, 400);
+				
+				//frame.getContentPane().add(solutionArea);
+				
+		
+				
+				frame.pack();		
+				frame.setVisible(true);
+		  		frame.repaint();
+		
 		    		    
-		    		       if (line.equals("PROBLEM SOLVED")){
-		    		    	   int actualLine = countLine-2;
-		    		    	   
-		    		    	   
-		    		    	   
-		    		    	  for (String lineOther = null; (lineOther = lineReader.readLine()) != null;) {
-		    		 	            if (lineReader.getLineNumber() >= actualLine) {
-		    		 	                lineContent.append(lineOther).append(File.pathSeparatorChar);
-		    		 	            }
-		    		 	        }
-		    		    	  Solution = lineContent.toString();
-		    		    	  //JOptionPane.showMessageDialog(null, "PROBLEM SOLVED: "+Solution);
-
-		    		       }
-		    		       
-		    		    	countLine++;
-		    		    }
-		        
-						//JOptionPane.showMessageDialog(null, "countline: "+countLine);
-						for (int i = 0; i < countLine; i++){
-							//System.out.print("\nLine number:"+i+" Content:"+lines[i]);
-							
-							solutionArea.append("\n"+lines[i]);
-						}
-		    		    
-		    		    lineReader.close();
-		    		    
-		    		    br.close();
-		    		    
+		        scanner.close();
 		    		    
 		     } catch (IOException e) {
 		        e.printStackTrace();}
 		    }
-//		  System.out.println(lines);
-//		
-//	
-//		
-	 
+
+
 		  
 	void invokeDataset(){
 	  
