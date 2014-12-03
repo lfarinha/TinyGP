@@ -7,23 +7,31 @@
 
 import java.util.*;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*; 
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.swing.*;
 
 
 public class tiny_gp extends JFrame{
 	
-	
+
  /**
 	 * 
 	 */
-	private static final long serialVersionUID = -2312097555139691867L;
+	private static final long serialVersionUID = -8309587926938512140L;
 
-	public static String Solution;
-//	private JPanel panel;
-//	private JFrame frame;
-//	private JTextArea textSolution;
+
+public static String Solution;
+
+JFrame frame;
+private JTextArea solutionArea;
+
+
 	
   double [] fitness;
   char [][] pop;
@@ -87,29 +95,11 @@ public class tiny_gp extends JFrame{
     return( 0 ); // should never get here
   }
   
-  public tiny_gp(){
+  public tiny_gp(){                                                                                       //         CONSTRUCTOR
 	  
-//	    panel = new JPanel();
-//		frame = new JFrame();
-//		textSolution = new JTextArea();
-//		
-//		
-//		textSolution.setToolTipText("Setting values for Tiny GP");
-//		textSolution.setEditable(false);
-//		textSolution.setBounds(10, 132, 220, 166);
-//		frame.getContentPane().add(textSolution);
-//		textSolution.setText(Solution);
-//
-//		
-//		frame.setBounds(100, 100, 454, 424);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.getContentPane().setLayout(null);
-//
-//	  
-//		panel.add(textSolution);
-//		this.add(panel);
+	  initialize();
+	 
 	  
-		
   }
 
   void setup_fitness(String fname) {
@@ -423,42 +413,8 @@ public class tiny_gp extends JFrame{
     stats( fitness, pop, 0 );
     for ( gen = 1; gen < GENERATIONS; gen ++ ) {
       if (  fbestpop > -1e-5 ) {
-         System.out.print("PROBLEM SOLVED\n");
+         System.out.print("PROBLEM SOLVED\n");              
          
-         
-         try{
- 	    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); ////////////////////NEW STUFF
- 	    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat"));
- 	    	StringBuilder lineContent = new StringBuilder();
- 	    	String line = "";
- 	        int countLine = 0;
-
- 	       
- 	        
- 	        while ((line = br.readLine()) != null) {
- 	    		    	countLine++;
- 	    		    	
- 	    		       if (line.equals("PROBLEM SOLVED")){
- 	    		    	   int actualLine = countLine-2;
- 	    		    	   
- 	    		    	   
- 	    		    	  for (String lineOther = null; (lineOther = lineReader.readLine()) != null;) {
- 	    		 	            if (lineReader.getLineNumber() >= actualLine) {
- 	    		 	                lineContent.append(lineOther).append(File.pathSeparatorChar);
- 	    		 	            }
- 	    		 	        }
- 	    		    	  Solution = lineContent.toString();
- 	    		    	  JOptionPane.showMessageDialog(null, "PROBLEM SOLVED: "+Solution);
- 	    		       }
- 	    		    }
- 	    		    
- 	    		    lineReader.close();
- 	    		    br.close();
- 	     } catch (IOException e) {
- 	        e.printStackTrace();
- 	    }
-         
-
          try{
        	  Thread.sleep(5000);
          }
@@ -496,7 +452,92 @@ public class tiny_gp extends JFrame{
     return;
   }
   
+
+
   
+  public void initialize(){
+	     
+	  	  
+		  try{
+		    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); ////////////////////NEW STUFF
+		    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat"));
+		    	 
+		    	StringBuilder lineContent = new StringBuilder();
+		    	String line = "";
+		    	String lines[] = new String[100];
+		    	
+		        int countLine = 0;
+		        
+		        frame = new JFrame();
+				frame.setBounds(100, 50, 200, 200);
+				frame.setSize(800, 800);
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.getContentPane().setLayout(null);
+				frame.setVisible(true);
+				
+				//JOptionPane.showMessageDialog(null, "countline: "+countLine);
+		  	    
+				//solutionArea.setText(lines[countLine]);
+				  
+		  		solutionArea = new JTextArea();
+		  		JScrollPane scrollPane = new JScrollPane(solutionArea);
+		  		solutionArea.setWrapStyleWord(false);
+		  		solutionArea.setEditable(true);
+		  		solutionArea.setBounds(300, 500, 1000, 300);
+		  		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		  		frame.getContentPane().add(solutionArea);
+		  		//frame.getContentPane().add(scrollPane);
+		    		       
+		        
+		        while ((line = br.readLine()) != null) {
+
+		    		    	
+		    		    	
+		    		    	 lines[countLine] = line.trim();
+		    		    	 //JOptionPane.showMessageDialog(null, "Lines: "+lines[countLine]);
+		    		    	 
+		    		    
+		    		       if (line.equals("PROBLEM SOLVED")){
+		    		    	   int actualLine = countLine-2;
+		    		    	   
+		    		    	   
+		    		    	   
+		    		    	  for (String lineOther = null; (lineOther = lineReader.readLine()) != null;) {
+		    		 	            if (lineReader.getLineNumber() >= actualLine) {
+		    		 	                lineContent.append(lineOther).append(File.pathSeparatorChar);
+		    		 	            }
+		    		 	        }
+		    		    	  Solution = lineContent.toString();
+		    		    	  //JOptionPane.showMessageDialog(null, "PROBLEM SOLVED: "+Solution);
+
+		    		       }
+		    		       
+		    		    	countLine++;
+		    		    }
+		        
+						//JOptionPane.showMessageDialog(null, "countline: "+countLine);
+						for (int i = 0; i < countLine; i++){
+							//System.out.print("\nLine number:"+i+" Content:"+lines[i]);
+							
+							solutionArea.append("\n"+lines[i]);
+						}
+		    		    
+		    		    lineReader.close();
+		    		    
+		    		    br.close();
+		    		    
+		    		    
+		     } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+//		  System.out.println(lines);
+//		
+//		
+//		
+	 
+		  
+	  
+  }
  
 
   public static void main(String[] args) {
@@ -512,9 +553,13 @@ public class tiny_gp extends JFrame{
       fname = args[0];
     }
     
+    
     tiny_gp gp = new tiny_gp(fname, s);
-    gp.evolve();
+     gp.evolve();
      
- }
-};
+    tiny_gp window = new  tiny_gp();
+    
+      
+}
+}
 

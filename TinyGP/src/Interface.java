@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
@@ -23,6 +24,7 @@ import javax.swing.JTextArea;
 import com.sun.java_cup.internal.runtime.Scanner;
 
 import java.awt.Font;
+import javax.swing.JTextPane;
 
 
 public class Interface {
@@ -33,7 +35,7 @@ public class Interface {
 	boolean variable;
 	double data;
 	
-	public String formula;
+	public String formula, Solution;
 	
 
 	JFrame frame;
@@ -58,7 +60,8 @@ public class Interface {
 										
 				}
 			});
-		  
+
+
 	}
 
 	/**
@@ -68,6 +71,8 @@ public class Interface {
 		initialize();
 	}
 	
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -75,7 +80,7 @@ public class Interface {
 	private void initialize() {
 				
 		frame = new JFrame();
-		frame.setBounds(100, 100, 454, 424);
+		frame.setBounds(100, 100, 413, 425);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -122,16 +127,19 @@ public class Interface {
 					protected Void doInBackground() throws Exception {
 							Thread.sleep(1000); // time until the thread goes to sleep
 							tiny_gp.main(new String[0]);
-							
 						
 						return null;
+						
+						
 					}
 										
 				};		     		
 		    
 				worker.execute();
-		        
+							
 			}
+				
+	
 		});
 		
 		
@@ -149,7 +157,7 @@ public class Interface {
 		JTextArea displaySettings = new JTextArea();
 		displaySettings.setToolTipText("Setting values for Tiny GP");
 		displaySettings.setEditable(false);
-		displaySettings.setBounds(10, 132, 220, 166);
+		displaySettings.setBounds(10, 10, 10, 10);
 		frame.getContentPane().add(displaySettings);
 					
 		String settings = ("Depth: "+tiny_gp.DEPTH +"\r\nMax Lenght: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nmin random: "+tiny_gp.minrandom+"\r\nmax random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree size: "+tiny_gp.TSIZE);
@@ -160,12 +168,16 @@ public class Interface {
 		lblSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblSettings.setBounds(10, 76, 200, 50);
 		frame.getContentPane().add(lblSettings);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(32, 327, 330, 48);
+		frame.getContentPane().add(textPane);
+
+		
+		
+		
+		
 
 
 	}//end of initialize
-	
-	
-	
-	
-		
 }// EOF
