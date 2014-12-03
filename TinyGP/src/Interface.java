@@ -157,7 +157,7 @@ public class Interface {
 		JTextArea displaySettings = new JTextArea();
 		displaySettings.setToolTipText("Setting values for Tiny GP");
 		displaySettings.setEditable(false);
-		displaySettings.setBounds(10, 10, 10, 10);
+		displaySettings.setBounds(10, 132, 241, 166);
 		frame.getContentPane().add(displaySettings);
 					
 		String settings = ("Depth: "+tiny_gp.DEPTH +"\r\nMax Lenght: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nmin random: "+tiny_gp.minrandom+"\r\nmax random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree size: "+tiny_gp.TSIZE);

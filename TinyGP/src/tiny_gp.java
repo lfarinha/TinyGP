@@ -18,7 +18,7 @@ import javax.swing.*;
 
 
 public class tiny_gp extends JFrame{
-	
+	List<Double> Best_Fitness = new ArrayList<Double>();
 
  /**
 	 * 
@@ -27,6 +27,7 @@ public class tiny_gp extends JFrame{
 
 
 public static String Solution;
+static int count = 0;	
 
 JFrame frame;
 private JTextArea solutionArea;
@@ -35,6 +36,7 @@ private JTextArea solutionArea;
 	
   double [] fitness;
   char [][] pop;
+  private List ArrayList;
   static Random rd = new Random();
   static final int 
     ADD = 110, 
@@ -252,6 +254,7 @@ private JTextArea solutionArea;
 
 
   void stats( double [] fitness, char [][] pop, int gen ) {
+     count++;
     int i, best = rd.nextInt(POPSIZE);
     int node_count = 0;
     fbestpop = fitness[best];
@@ -273,7 +276,16 @@ private JTextArea solutionArea;
     print_indiv( pop[best], 0 );
     System.out.print( "\n");
     System.out.flush();
-        
+        double absfitness = -fbestpop;
+    
+    
+    //Best_Fitness.add(fbestpop);
+    int j; 
+    j = gen;
+    if(j <= Best_Fitness.size() ) 
+      Best_Fitness.add(j, absfitness);
+    else
+    	System.out.println("Data Complete");
   }
 
   int tournament( double [] fitness, int tsize ) {
@@ -414,9 +426,9 @@ private JTextArea solutionArea;
     for ( gen = 1; gen < GENERATIONS; gen ++ ) {
       if (  fbestpop > -1e-5 ) {
          System.out.print("PROBLEM SOLVED\n");              
-         
+         invokeDataset();
          try{
-       	  Thread.sleep(5000);
+       	  Thread.sleep(9000);
          }
          catch(InterruptedException e){
        	  e.printStackTrace();
@@ -442,6 +454,7 @@ private JTextArea solutionArea;
       stats( fitness, pop, gen );
     }
     System.out.print("PROBLEM *NOT* SOLVED\n");
+     invokeDataset();
     //System.exit( 1 );
     try{
      	  Thread.sleep(5000);
@@ -455,22 +468,22 @@ private JTextArea solutionArea;
 
 
   
-  public void initialize(){
+  public void initialize(){  // this method reads the console.dat and writes all of the content on a JFrame.
 	     
 	  	  
 		  try{
-		    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); ////////////////////NEW STUFF
-		    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat"));
+		    	BufferedReader br = new BufferedReader(new FileReader("console.dat")); // This is the object that reads the console.dat document
+		    	LineNumberReader lineReader = new LineNumberReader(new FileReader("console.dat")); // this object reads every line on the console.dat and bring the ammount of lines.
 		    	 
 		    	StringBuilder lineContent = new StringBuilder();
 		    	String line = "";
-		    	String lines[] = new String[100];
+		    	String lines[] = new String[1000];
 		    	
 		        int countLine = 0;
 		        
 		        frame = new JFrame();
-				frame.setBounds(100, 50, 200, 200);
-				frame.setSize(800, 800);
+				frame.setBounds(100, 100, 200, 200);
+				frame.setSize(800, 600);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.getContentPane().setLayout(null);
 				frame.setVisible(true);
@@ -483,7 +496,7 @@ private JTextArea solutionArea;
 		  		JScrollPane scrollPane = new JScrollPane(solutionArea);
 		  		solutionArea.setWrapStyleWord(false);
 		  		solutionArea.setEditable(true);
-		  		solutionArea.setBounds(300, 500, 1000, 300);
+		  		solutionArea.setBounds(10, 11, 700, 600);
 		  		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		  		frame.getContentPane().add(solutionArea);
 		  		//frame.getContentPane().add(scrollPane);
@@ -528,16 +541,23 @@ private JTextArea solutionArea;
 		    		    
 		    		    
 		     } catch (IOException e) {
-		        e.printStackTrace();
+		        e.printStackTrace();}
 		    }
 //		  System.out.println(lines);
 //		
-//		
+//	
 //		
 	 
 		  
+	void invokeDataset(){
 	  
+	 GraphPanel dataSet = new GraphPanel(Best_Fitness);
+	  String[]args = {};
+	  //dataSet.main(args);
+	  dataSet.createAndShowGui();
   }
+  
+  
  
 
   public static void main(String[] args) {
