@@ -152,7 +152,7 @@ public class Interface {
 		displaySettings.setBounds(10, 132, 324, 225);
 		frame.getContentPane().add(displaySettings);
 					
-		String settings = ("            -- TINY GP (Java version) --\n\n"+"Seed: "+tiny_gp.DEPTH +"\r\nDepth: "+tiny_gp.DEPTH +"\r\nMax Lenght: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nmin random: "+tiny_gp.minrandom+"\r\nmax random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree size: "+tiny_gp.TSIZE);
+		String settings = ("            -- TINY GP (Java version) --\n\n"+"Seed: "+tiny_gp.DEPTH +"\r\nDepth: "+tiny_gp.DEPTH +"\r\nMax Length: "+tiny_gp.MAX_LEN+"\r\nPopulation Size: "+tiny_gp.POPSIZE+"\r\nCrossover Probability: "+tiny_gp.CROSSOVER_PROB+"\r\nMutation probability "+tiny_gp.PMUT_PER_NODE+"\r\nMin Random: "+tiny_gp.minrandom+"\r\nMax Random "+tiny_gp.maxrandom+"\r\nGenerations: "+tiny_gp.GENERATIONS+"\r\nTree Size: "+tiny_gp.TSIZE);
 		
 	    displaySettings.setText(settings);
 	    
