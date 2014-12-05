@@ -11,7 +11,10 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -162,9 +165,19 @@ public class GraphPanel extends JPanel {
         }*/
         GraphPanel mainPanel = new GraphPanel(scores);
         mainPanel.setPreferredSize(new Dimension(800, 600));
-        JFrame frame = new JFrame("DrawGraph");
+        JFrame frame = new JFrame("Fitness Graph");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        JLabel lab1 = new JLabel(" X = Generations" + ", " + "Y = Best Fitness" );
+        JPanel rightPanel = new JPanel();
+        
+        rightPanel.setAlignmentX(BOTTOM_ALIGNMENT);
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+        rightPanel.add(lab1);
+        mainPanel.add(rightPanel);
         frame.getContentPane().add(mainPanel);
+      
+      //  frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
