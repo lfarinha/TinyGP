@@ -79,7 +79,7 @@ public class Interface {
 	 */
 	private void initialize() {
 				
-		frame = new JFrame();
+		frame = new JFrame("Genetic Program Powered By TinyGP");
 		frame.setBounds(100, 100, 395, 439);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
