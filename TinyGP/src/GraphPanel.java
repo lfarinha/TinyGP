@@ -168,7 +168,7 @@ public class GraphPanel extends JPanel {
         JFrame frame = new JFrame("Fitness Graph");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        JLabel lab1 = new JLabel(" X = Generations" + ", " + "Y = Best Fitness" );
+        JLabel lab1 = new JLabel(" X = Generations" + ", " + "Y = Fitness Value" );
         JPanel rightPanel = new JPanel();
         
         rightPanel.setAlignmentX(BOTTOM_ALIGNMENT);
