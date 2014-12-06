@@ -428,7 +428,7 @@ private JTextArea solutionArea;
     print_parms();
     stats( fitness, pop, 0 );
     for ( gen = 1; gen < GENERATIONS; gen ++ ) {
-      if (  fbestpop > -1e-5 ) {
+      if (  fbestpop > -0.02 ) {
          System.out.print("PROBLEM SOLVED\n");              
          invokeDataset();
          try{
